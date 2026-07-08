@@ -16,12 +16,12 @@
 -->
 <PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:title="@string/fast_charge_title">
+    android:title="@string/bypass_charge_title">
 
     <SwitchPreferenceCompat
-        android:key="fast_charging"
+        android:key="bypass_charging"
         android:defaultValue="false"
-        android:title="@string/fast_charging_title"
-        android:summary="@string/fast_charging_summary" />
+        android:title="@string/bypass_charging_title"
+        android:summary="@string/bypass_charging_summary" />
 
 </PreferenceScreen>

@@ -16,19 +16,19 @@
  * limitations under the License.
  */
 
-package com.android.fastcharge.battery;
+package com.android.bypasscharge.battery;
 
 import android.os.Bundle;
 import com.android.settingslib.collapsingtoolbar.CollapsingToolbarBaseActivity;
 
-public class FastChargeActivity extends CollapsingToolbarBaseActivity {
+public class BypassChargeActivity extends CollapsingToolbarBaseActivity {
 
-    private static final String TAG_FAST_CHARGE = "FastCharge";
+    private static final String TAG_BYPASS_CHARGE = "BypassCharge";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportFragmentManager().beginTransaction().replace(com.android.settingslib.collapsingtoolbar.R.id.content_frame,
-                new FastChargeFragment(), TAG_FAST_CHARGE).commit();
+                new BypassChargeFragment(), TAG_BYPASS_CHARGE).commit();
     }
 }

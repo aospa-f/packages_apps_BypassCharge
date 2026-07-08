@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package com.android.fastcharge.utils;
+package com.android.bypasscharge.utils;
 
 import android.util.Log;
 import java.io.BufferedReader;
@@ -154,7 +154,7 @@ public final class FileUtils {
   public static boolean getNodeValueAsBoolean(String filename, boolean defValue) {
     String fileValue = readOneLine(filename);
     if (fileValue != null) {
-      return (!fileValue.equals("0"));
+      return fileValue.equals("0");
     }
     return defValue;
   }

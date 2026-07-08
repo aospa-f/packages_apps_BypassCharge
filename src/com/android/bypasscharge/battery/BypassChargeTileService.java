@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.fastcharge.battery;
+package com.android.bypasscharge.battery;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -29,14 +29,14 @@ import android.service.quicksettings.TileService;
 
 import androidx.preference.PreferenceManager;
 
-import com.android.fastcharge.R;
-import com.android.fastcharge.utils.FileUtils;
+import com.android.bypasscharge.R;
+import com.android.bypasscharge.utils.FileUtils;
 
-public class FastChargeTileService extends TileService {
+public class BypassChargeTileService extends TileService {
 
-    private FastChargeConfig mConfig;
+    private BypassChargeConfig mConfig;
 
-    private Intent mFastChargeIntent;
+    private Intent mBypassChargeIntent;
 
     private boolean mInternalStart;
 
@@ -53,7 +53,7 @@ public class FastChargeTileService extends TileService {
 
     private void updateUI() {
         final Tile tile = getQsTile();
-        boolean enabled = mConfig.isCurrentlyEnabled(mConfig.getFastChargePath());
+        boolean enabled = mConfig.isCurrentlyEnabled(mConfig.getBypassChargePath());
 
         if (!enabled) tryStopService();
 
@@ -64,11 +64,11 @@ public class FastChargeTileService extends TileService {
     @Override
     public void onStartListening() {
         super.onStartListening();
-        mConfig = FastChargeConfig.getInstance(this);
+        mConfig = BypassChargeConfig.getInstance(this);
 
         updateUI();
 
-        IntentFilter filter = new IntentFilter(mConfig.ACTION_FAST_CHARGE_SERVICE_CHANGED);
+        IntentFilter filter = new IntentFilter(mConfig.ACTION_BYPASS_CHARGE_SERVICE_CHANGED);
         registerReceiver(mServiceStateReceiver, filter, Context.RECEIVER_EXPORTED);
     }
 
@@ -85,14 +85,14 @@ public class FastChargeTileService extends TileService {
 
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 
-        boolean enabled = !mConfig.isCurrentlyEnabled(mConfig.getFastChargePath());
-        FileUtils.writeLine(mConfig.getFastChargePath(), enabled ? "1" : "0");
+        boolean enabled = !mConfig.isCurrentlyEnabled(mConfig.getBypassChargePath());
+        FileUtils.writeLine(mConfig.getBypassChargePath(), enabled ? "0" : "1");
 
-        sharedPrefs.edit().putBoolean(mConfig.FASTCHARGE_KEY, enabled).commit();
+        sharedPrefs.edit().putBoolean(mConfig.BYPASSCHARGE_KEY, enabled).commit();
 
-        Intent intent = new Intent(mConfig.ACTION_FAST_CHARGE_SERVICE_CHANGED);
+        Intent intent = new Intent(mConfig.ACTION_BYPASS_CHARGE_SERVICE_CHANGED);
 
-        intent.putExtra(mConfig.EXTRA_FAST_CHARGE_STATE, enabled);
+        intent.putExtra(mConfig.EXTRA_BYPASS_CHARGE_STATE, enabled);
         intent.setFlags(Intent.FLAG_RECEIVER_REGISTERED_ONLY);
         this.sendBroadcastAsUser(intent, UserHandle.CURRENT);;
 
@@ -100,8 +100,8 @@ public class FastChargeTileService extends TileService {
     }
 
     private void tryStopService() {
-        if (mFastChargeIntent == null) return;
-        this.stopService(mFastChargeIntent);
-        mFastChargeIntent = null;
+        if (mBypassChargeIntent == null) return;
+        this.stopService(mBypassChargeIntent);
+        mBypassChargeIntent = null;
     }
 }

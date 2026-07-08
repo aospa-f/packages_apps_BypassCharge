@@ -14,42 +14,42 @@
  * limitations under the License.
  */
 
-package com.android.fastcharge.battery;
+package com.android.bypasscharge.battery;
 
 import android.content.Context;
 import android.content.res.Resources;
 
-import com.android.fastcharge.utils.FileUtils;
+import com.android.bypasscharge.utils.FileUtils;
 
-public class FastChargeConfig {
+public class BypassChargeConfig {
 
-    private static FastChargeConfig instance = null;
+    private static BypassChargeConfig instance = null;
 
-    public static FastChargeConfig getInstance(Context context) {
+    public static BypassChargeConfig getInstance(Context context) {
 
         if (instance == null) {
-            instance = new FastChargeConfig(context.getApplicationContext());
+            instance = new BypassChargeConfig(context.getApplicationContext());
         }
 
         return instance;
     }
 
-    public static final String FASTCHARGE_KEY = "fast_charging";
+    public static final String BYPASSCHARGE_KEY = "bypass_charging";
 
-    private final String config_FastChargePath;
+    private final String config_BypassChargePath;
 
-    public static final String ACTION_FAST_CHARGE_SERVICE_CHANGED = "com.android.fastcharge.battery.FAST_CHARGE_SERVICE_CHANGED";
-    public static final String EXTRA_FAST_CHARGE_STATE = "fastchargingenabled";
+    public static final String ACTION_BYPASS_CHARGE_SERVICE_CHANGED = "com.android.bypasscharge.battery.BYPASS_CHARGE_SERVICE_CHANGED";
+    public static final String EXTRA_BYPASS_CHARGE_STATE = "bypasschargingenabled";
 
-    private FastChargeConfig(Context context) {
+    private BypassChargeConfig(Context context) {
 
 	Resources res = context.getResources();
 
-	config_FastChargePath = res.getString(com.android.fastcharge.R.string.config_FastChargePath);
+	config_BypassChargePath = res.getString(com.android.bypasscharge.R.string.config_BypassChargePath);
     }
 
-    public String getFastChargePath() {
-        return config_FastChargePath;
+    public String getBypassChargePath() {
+        return config_BypassChargePath;
     }
 
     public boolean isCurrentlyEnabled(String node) {

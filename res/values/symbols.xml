@@ -14,6 +14,6 @@
 -->
 <resources>
 
-    <!-- Path to Fast Charging sysfs node -->
-    <java-symbol type="string" name="config_FastChargePath" />
+    <!-- Path to Bypass Charging sysfs node -->
+    <java-symbol type="string" name="config_BypassChargePath" />
 </resources>

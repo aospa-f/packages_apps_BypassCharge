@@ -14,10 +14,10 @@
 -->
 <resources>
 
-    <!-- Fast Charge -->
-    <string name="fast_charge_title">FastCharge</string>
-    <string name="fast_charge_summary">Contains a toggle to enable fast charging on this device</string>
-    <string name="fast_charging_title">Fast Charging</string>
-    <string name="fast_charging_summary">Disable to reduce the heat produced by the device while charging or to extend the lifespan of the battery</string>
-    <string name="fast_charging_summary_not_supported">Fast Charging is currently not supported by the kernel</string>
+    <!-- Bypass Charge -->
+    <string name="bypass_charge_title">Bypass Charging</string>
+    <string name="bypass_charge_summary">Contains a toggle to enable bypass or passthrough charging on this device</string>
+    <string name="bypass_charging_title">Bypass Charging</string>
+    <string name="bypass_charging_summary">Enable to stop charging the device to cut down heat and extend battery life</string>
+    <string name="bypass_charging_summary_not_supported">Bypass Charging is currently not supported by the kernel</string>
 </resources>

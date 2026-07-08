@@ -6,7 +6,7 @@
 //
 
 android_app {
-    name: "FastCharge",
+    name: "BypassCharge",
     defaults: [
         "SettingsLibDefaults",
     ],

@@ -1,4 +1,4 @@
-#+TITLE: FastCharge
+#+TITLE: BypassCharge
 
 * Table of contents
 :PROPERTIES:
@@ -13,25 +13,23 @@
 
 * About
 
-ROM Frontend for fast charging toggle.
+ROM Frontend for bypass/passthrough charging toggle.
 
 * Usage
 
 ** 1) Clone this repository to the specified directory
 
 #+BEGIN_SRC shell
-git clone https://github.com/cyberknight777/android_packages_apps_FastCharge packages/apps/FastCharge
+git clone https://github.com/YAAP/packages_apps_BypassCharge packages/apps/BypassCharge
 #+END_SRC
 
-** 2) Adapt the following commit for your device and build it as it is :)
-
-https://github.com/YAAP/device_xiaomi_sunny/commit/55862f9647af5485c20e00021fde61e3f08a1f79
+** 2) Build the package and add sepolicy if needed
 
 * Purpose
 
-+ To provide a toggle for fast charging instead of using LineageOS' HIDL HAL.
++ To provide a toggle for bypass/passthrough charging instead of using LineageOS' HIDL HAL.
 
 #+END_SRC
 * Credits
 
-+ [[https://github.com/cyberknight777/android_packages_apps_DisplayFeatures][DisplayFeatures]] as it is the base for this package.
++ [[https://github.com/YAAP/packages_apps_FastCharge][FastCharge]] as it is the base for this package.

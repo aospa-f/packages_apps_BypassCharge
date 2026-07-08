@@ -14,7 +14,7 @@
      limitations under the License.
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.android.fastcharge"
+    package="com.android.bypasscharge"
     android:versionCode="1"
     android:versionName="1.0"
     android:sharedUserId="android.uid.system">
@@ -25,7 +25,7 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
-        android:label="@string/fast_charge_title"
+        android:label="@string/bypass_charge_title"
         android:persistent="true"
         android:theme="@style/Theme.SubSettingsBase">
 
@@ -38,11 +38,11 @@
             </intent-filter>
         </receiver>
 
-        <!-- FastCharge -->
+        <!-- BypassCharge -->
         <activity
-            android:name=".battery.FastChargeActivity"
+            android:name=".battery.BypassChargeActivity"
             android:exported="true"
-            android:label="@string/fast_charge_title"
+            android:label="@string/bypass_charge_title"
             android:theme="@style/Theme.SubSettingsBase">
             <intent-filter>
                 <action android:name="com.android.settings.action.IA_SETTINGS" />
@@ -54,14 +54,14 @@
                 android:value="com.android.settings.category.ia.battery" />
             <meta-data
                 android:name="com.android.settings.summary"
-                android:resource="@string/fast_charge_summary" />
+                android:resource="@string/bypass_charge_summary" />
         </activity>
 
         <service
-            android:name=".battery.FastChargeTileService"
+            android:name=".battery.BypassChargeTileService"
             android:exported="true"
-            android:icon="@drawable/ic_fastcharge"
-            android:label="@string/fast_charging_title"
+            android:icon="@drawable/ic_bypasscharge"
+            android:label="@string/bypass_charging_title"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
             <intent-filter>
                 <action android:name="android.service.quicksettings.action.QS_TILE"/>

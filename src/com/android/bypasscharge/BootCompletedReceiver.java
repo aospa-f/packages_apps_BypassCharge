@@ -16,32 +16,32 @@
  * limitations under the License.
  */
 
-package com.android.fastcharge;
+package com.android.bypasscharge;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
-import com.android.fastcharge.battery.FastChargeConfig;
-import com.android.fastcharge.utils.FileUtils;
+import com.android.bypasscharge.battery.BypassChargeConfig;
+import com.android.bypasscharge.utils.FileUtils;
 import android.content.SharedPreferences;
 import androidx.preference.PreferenceManager;
 
 public class BootCompletedReceiver extends BroadcastReceiver {
     private static final boolean DEBUG = false;
-    private static final String TAG = "FastCharge";
+    private static final String TAG = "BypassCharge";
 
     @Override
     public void onReceive(final Context context, Intent intent) {
         if (DEBUG)
             Log.d(TAG, "Received boot completed intent");
 
-        FastChargeConfig mConfig = FastChargeConfig.getInstance(context);
+        BypassChargeConfig mConfig = BypassChargeConfig.getInstance(context);
 
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
 
-        boolean fastchargeEnabled = sharedPrefs.getBoolean(mConfig.FASTCHARGE_KEY, false);
-        FileUtils.writeLine(mConfig.getFastChargePath(), fastchargeEnabled ? "1" : "0");
+        boolean bypasschargeEnabled = sharedPrefs.getBoolean(mConfig.BYPASSCHARGE_KEY, false);
+        FileUtils.writeLine(mConfig.getBypassChargePath(), bypasschargeEnabled ? "0" : "1");
 
     }
 }

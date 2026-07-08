@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package com.android.fastcharge.battery;
+package com.android.bypasscharge.battery;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -30,32 +30,32 @@ import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreferenceCompat;
 
-import com.android.fastcharge.R;
-import com.android.fastcharge.utils.FileUtils;
+import com.android.bypasscharge.R;
+import com.android.bypasscharge.utils.FileUtils;
 
-public class FastChargeFragment extends PreferenceFragmentCompat implements
+public class BypassChargeFragment extends PreferenceFragmentCompat implements
         Preference.OnPreferenceChangeListener {
 
-    private SwitchPreferenceCompat mFastChargePreference;
-    private FastChargeConfig mConfig;
-    private boolean mInternalFastChargeStart = false;
+    private SwitchPreferenceCompat mBypassChargePreference;
+    private BypassChargeConfig mConfig;
+    private boolean mInternalBypassChargeStart = false;
 
     private final BroadcastReceiver mServiceStateReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
-            if (action.equals(mConfig.ACTION_FAST_CHARGE_SERVICE_CHANGED)) {
-                if (mInternalFastChargeStart) {
-                        mInternalFastChargeStart = false;
+            if (action.equals(mConfig.ACTION_BYPASS_CHARGE_SERVICE_CHANGED)) {
+                if (mInternalBypassChargeStart) {
+                        mInternalBypassChargeStart = false;
                         return;
                 }
 
-                if (mFastChargePreference == null) return;
+                if (mBypassChargePreference == null) return;
 
-                final boolean fastchargeStarted = intent.getBooleanExtra(
-                            mConfig.EXTRA_FAST_CHARGE_STATE, false);
+                final boolean bypasschargeStarted = intent.getBooleanExtra(
+                            mConfig.EXTRA_BYPASS_CHARGE_STATE, false);
 
-                mFastChargePreference.setChecked(fastchargeStarted);
+                mBypassChargePreference.setChecked(bypasschargeStarted);
 
             }
         }
@@ -63,49 +63,49 @@ public class FastChargeFragment extends PreferenceFragmentCompat implements
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
-        setPreferencesFromResource(R.xml.fastcharge_settings, rootKey);
-        mConfig = FastChargeConfig.getInstance(getContext());
-        mFastChargePreference = (SwitchPreferenceCompat) findPreference(mConfig.FASTCHARGE_KEY);
-        if (FileUtils.fileExists(mConfig.getFastChargePath())) {
-            mFastChargePreference.setEnabled(true);
-            mFastChargePreference.setOnPreferenceChangeListener(this);
+        setPreferencesFromResource(R.xml.bypasscharge_settings, rootKey);
+        mConfig = BypassChargeConfig.getInstance(getContext());
+        mBypassChargePreference = (SwitchPreferenceCompat) findPreference(mConfig.BYPASSCHARGE_KEY);
+        if (FileUtils.fileExists(mConfig.getBypassChargePath())) {
+            mBypassChargePreference.setEnabled(true);
+            mBypassChargePreference.setOnPreferenceChangeListener(this);
         } else {
-            mFastChargePreference.setSummary(R.string.fast_charging_summary_not_supported);
-            mFastChargePreference.setEnabled(false);
+            mBypassChargePreference.setSummary(R.string.bypass_charging_summary_not_supported);
+            mBypassChargePreference.setEnabled(false);
         }
 
-        mFastChargePreference.setChecked(mConfig.isCurrentlyEnabled(mConfig.getFastChargePath()));
+        mBypassChargePreference.setChecked(mConfig.isCurrentlyEnabled(mConfig.getBypassChargePath()));
 
         // Registering observers
         IntentFilter filter = new IntentFilter();
-        filter.addAction(mConfig.ACTION_FAST_CHARGE_SERVICE_CHANGED);
+        filter.addAction(mConfig.ACTION_BYPASS_CHARGE_SERVICE_CHANGED);
         getContext().registerReceiver(mServiceStateReceiver, filter, Context.RECEIVER_EXPORTED);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        mFastChargePreference.setChecked(mConfig.isCurrentlyEnabled(mConfig.getFastChargePath()));
+        mBypassChargePreference.setChecked(mConfig.isCurrentlyEnabled(mConfig.getBypassChargePath()));
     }
 
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
-        if (mConfig.FASTCHARGE_KEY.equals(preference.getKey())) {
-            mInternalFastChargeStart = true;
+        if (mConfig.BYPASSCHARGE_KEY.equals(preference.getKey())) {
+            mInternalBypassChargeStart = true;
             Context mContext = getContext();
 
             SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(mContext);
 
-            FileUtils.writeLine(mConfig.getFastChargePath(), (Boolean) newValue ? "1":"0");
+            FileUtils.writeLine(mConfig.getBypassChargePath(), (Boolean) newValue ? "0":"1");
 
-            boolean enabled = mConfig.isCurrentlyEnabled(mConfig.getFastChargePath());
+            boolean enabled = mConfig.isCurrentlyEnabled(mConfig.getBypassChargePath());
 
-            sharedPrefs.edit().putBoolean(mConfig.FASTCHARGE_KEY, enabled).commit();
+            sharedPrefs.edit().putBoolean(mConfig.BYPASSCHARGE_KEY, enabled).commit();
 
-            Intent intent = new Intent(mConfig.ACTION_FAST_CHARGE_SERVICE_CHANGED);
+            Intent intent = new Intent(mConfig.ACTION_BYPASS_CHARGE_SERVICE_CHANGED);
 
-            intent.putExtra(mConfig.EXTRA_FAST_CHARGE_STATE, enabled);
+            intent.putExtra(mConfig.EXTRA_BYPASS_CHARGE_STATE, enabled);
             intent.setFlags(Intent.FLAG_RECEIVER_REGISTERED_ONLY);
             mContext.sendBroadcastAsUser(intent, UserHandle.CURRENT);;
         }
