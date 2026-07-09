@@ -26,14 +26,14 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.UserHandle;
 import androidx.preference.Preference;
-import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreferenceCompat;
 
 import com.android.bypasscharge.R;
 import com.android.bypasscharge.utils.FileUtils;
+import com.android.settingslib.widget.SettingsBasePreferenceFragment;
 
-public class BypassChargeFragment extends PreferenceFragmentCompat implements
+public class BypassChargeFragment extends SettingsBasePreferenceFragment implements
         Preference.OnPreferenceChangeListener {
 
     private SwitchPreferenceCompat mBypassChargePreference;
