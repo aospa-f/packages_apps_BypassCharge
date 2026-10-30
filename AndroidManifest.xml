@@ -38,6 +38,14 @@
             </intent-filter>
         </receiver>
 
+        <receiver
+            android:name=".PowerConnectionReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
+            </intent-filter>
+        </receiver>
+
         <!-- BypassCharge -->
         <activity
             android:name=".battery.BypassChargeActivity"

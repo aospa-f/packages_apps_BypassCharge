@@ -103,6 +103,11 @@ public class BypassChargeFragment extends SettingsBasePreferenceFragment impleme
 
             sharedPrefs.edit().putBoolean(mConfig.BYPASSCHARGE_KEY, enabled).commit();
 
+            try {
+                android.provider.Settings.System.putInt(mContext.getContentResolver(),
+                        "bypass_charging_active", enabled ? 1 : 0);
+            } catch (Exception ignored) {}
+
             Intent intent = new Intent(mConfig.ACTION_BYPASS_CHARGE_SERVICE_CHANGED);
 
             intent.putExtra(mConfig.EXTRA_BYPASS_CHARGE_STATE, enabled);
