@@ -21,8 +21,6 @@ package com.android.bypasscharge;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.os.BatteryManager;
 import android.provider.Settings;
 import android.util.Log;
 import com.android.bypasscharge.battery.BypassChargeConfig;
@@ -41,23 +39,15 @@ public class BootCompletedReceiver extends BroadcastReceiver {
 
         BypassChargeConfig mConfig = BypassChargeConfig.getInstance(context);
 
+        // Bypass charging must never be restored on boot: it conflicts with charging
+        // control and can leave the battery in an unexpected state. Always start with
+        // normal charging enabled and let the user turn bypass on explicitly.
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
-
-        Intent batteryIntent = context.registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
-        int plugged = batteryIntent != null ? batteryIntent.getIntExtra(BatteryManager.EXTRA_PLUGGED, 0) : 0;
-
-        boolean bypasschargeEnabled = (plugged != 0) && sharedPrefs.getBoolean(mConfig.BYPASSCHARGE_KEY, false);
-        if (!bypasschargeEnabled) {
-            sharedPrefs.edit().putBoolean(mConfig.BYPASSCHARGE_KEY, false).apply();
-            try {
-                Settings.System.putInt(context.getContentResolver(), "bypass_charging_active", 0);
-            } catch (Exception ignored) {}
-        } else {
-            try {
-                Settings.System.putInt(context.getContentResolver(), "bypass_charging_active", 1);
-            } catch (Exception ignored) {}
-        }
-        FileUtils.writeLine(mConfig.getBypassChargePath(), bypasschargeEnabled ? "0" : "1");
+        sharedPrefs.edit().putBoolean(mConfig.BYPASSCHARGE_KEY, false).apply();
+        try {
+            Settings.System.putInt(context.getContentResolver(), "bypass_charging_active", 0);
+        } catch (Exception ignored) {}
+        FileUtils.writeLine(mConfig.getBypassChargePath(), "1");
 
     }
 }
