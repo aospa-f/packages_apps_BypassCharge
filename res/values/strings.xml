@@ -20,4 +20,12 @@
     <string name="bypass_charging_title">Bypass Charging</string>
     <string name="bypass_charging_summary">Enable to stop charging the device to cut down heat and extend battery life</string>
     <string name="bypass_charging_summary_not_supported">Bypass Charging is currently not supported by the kernel</string>
+
+    <!-- Charge speed -->
+    <string name="charge_speed_title">Charge speed</string>
+    <string name="charge_speed_summary">Set the charging speed level from 1 to 16</string>
+    <string name="charge_speed_summary_not_supported">Charge speed control is not supported by the kernel</string>
+    <string name="charge_speed_level">Level %d</string>
+    <string name="charge_speed_unavailable">Unavailable</string>
+    <string name="charge_speed_failed">Could not set charge speed</string>
 </resources>

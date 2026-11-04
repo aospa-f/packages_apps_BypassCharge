@@ -16,4 +16,7 @@
 
     <!-- Path to Bypass Charging sysfs node -->
     <string name="config_BypassChargePath" translatable="false">/sys/class/oplus_chg/battery/mmi_charging_enable</string>
+
+    <!-- Path to the OPlus charge speed level sysfs node (1..16) -->
+    <string name="config_ChargeSpeedPath" translatable="false">/sys/class/oplus_chg/battery/cool_down</string>
 </resources>

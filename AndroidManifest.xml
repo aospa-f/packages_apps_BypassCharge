@@ -46,6 +46,27 @@
             </intent-filter>
         </receiver>
 
+        <!-- Charge speed -->
+        <activity
+            android:name=".battery.ChargeSpeedActivity"
+            android:exported="true"
+            android:label="@string/charge_speed_title">
+            <intent-filter>
+                <action android:name="com.android.settings.action.IA_SETTINGS" />
+                <action android:name="android.service.quicksettings.action.QS_TILE_PREFERENCES"/>
+            </intent-filter>
+
+            <meta-data
+                android:name="com.android.settings.category"
+                android:value="com.android.settings.category.ia.battery" />
+            <meta-data
+                android:name="com.android.settings.group_key"
+                android:value="percentage_category" />
+            <meta-data
+                android:name="com.android.settings.summary"
+                android:resource="@string/charge_speed_summary" />
+        </activity>
+
         <!-- BypassCharge -->
         <activity
             android:name=".battery.BypassChargeActivity"
@@ -78,6 +99,18 @@
             </intent-filter>
             <meta-data android:name="android.service.quicksettings.TOGGLEABLE_TILE"
                 android:value="true" />
+        </service>
+
+        <!-- Charge speed -->
+        <service
+            android:name=".battery.ChargeSpeedTileService"
+            android:exported="true"
+            android:icon="@drawable/ic_chargespeed"
+            android:label="@string/charge_speed_title"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE"/>
+            </intent-filter>
         </service>
 
         <!-- Search indexing -->

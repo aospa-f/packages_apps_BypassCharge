@@ -40,13 +40,16 @@ import java.util.List;
 import java.util.Map;
 
 import com.android.bypasscharge.battery.BypassChargeActivity;
+import com.android.bypasscharge.battery.ChargeSpeedActivity;
 
 public class SettingsSearchIndexablesProvider extends SearchIndexablesProvider {
 
     private static final List<SearchIndexableResource> RESOURCES = new ArrayList<>(
             Arrays.asList(
         new SearchIndexableResource(1, R.xml.bypasscharge_settings,
-                BypassChargeActivity.class.getName(), 0)));
+                BypassChargeActivity.class.getName(), 0),
+        new SearchIndexableResource(2, R.xml.charge_speed_settings,
+                ChargeSpeedActivity.class.getName(), 0)));
 
     @Override
     public boolean onCreate() {

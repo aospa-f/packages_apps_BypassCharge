@@ -16,4 +16,7 @@
 
     <!-- Path to Bypass Charging sysfs node -->
     <java-symbol type="string" name="config_BypassChargePath" />
+
+    <!-- Path to the OPlus charge speed level sysfs node -->
+    <java-symbol type="string" name="config_ChargeSpeedPath" />
 </resources>
