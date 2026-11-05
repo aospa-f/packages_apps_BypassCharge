@@ -25,6 +25,7 @@ import android.provider.Settings;
 import android.util.Log;
 import com.android.bypasscharge.battery.BypassChargeConfig;
 import com.android.bypasscharge.battery.ChargeSpeedConfig;
+import com.android.bypasscharge.display.LtpoService;
 import com.android.bypasscharge.utils.FileUtils;
 import android.content.SharedPreferences;
 import androidx.preference.PreferenceManager;
@@ -52,5 +53,12 @@ public class BootCompletedReceiver extends BroadcastReceiver {
 
         // Restore the saved charge-speed level (defaults to 8) on every boot.
         ChargeSpeedConfig.applySavedLevel(context);
+
+        // Keep the adaptive refresh mode at the panel's 1 Hz idle rate.
+        try {
+            context.startService(new Intent(context, LtpoService.class));
+        } catch (RuntimeException e) {
+            Log.w(TAG, "Unable to start LtpoService", e);
+        }
     }
 }

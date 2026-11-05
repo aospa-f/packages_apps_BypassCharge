@@ -113,6 +113,11 @@
             </intent-filter>
         </service>
 
+        <!-- LTPO -->
+        <service
+            android:name=".display.LtpoService"
+            android:exported="false" />
+
         <!-- Search indexing -->
         <provider
             android:name=".SettingsSearchIndexablesProvider"
