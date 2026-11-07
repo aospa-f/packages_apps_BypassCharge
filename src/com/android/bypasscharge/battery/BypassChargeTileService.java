@@ -24,6 +24,8 @@ import android.content.SharedPreferences;
 import android.graphics.drawable.Icon;
 import android.os.Handler;
 import android.os.UserHandle;
+import android.app.PendingIntent;
+import android.os.Build;
 import android.service.quicksettings.Tile;
 import android.service.quicksettings.TileService;
 
@@ -76,6 +78,24 @@ public class BypassChargeTileService extends TileService {
     public void onStopListening() {
         super.onStopListening();
         unregisterReceiver(mServiceStateReceiver);
+    }
+
+    @Override
+    public void onLongClick() {
+        super.onLongClick();
+        Intent intent = new Intent(this, BypassChargeActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        PendingIntent pendingIntent =
+                PendingIntent.getActivity(
+                        this,
+                        0,
+                        intent,
+                        PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+            startActivityAndCollapse(pendingIntent);
+        } else {
+            startActivityAndCollapse(intent);
+        }
     }
 
     @Override
